@@ -1,0 +1,55 @@
+# Test Lab
+
+多机测试实验室的词汇表。这里只有词的定义，没有实现细节。内核层的词不带任何被测
+系统的概念；被测系统自己的词在它的适配层里定义。
+
+## Language
+
+### 内核
+
+**Lab**:
+一套让 agent 指挥多台机器上的被测系统跑场景并产出证据的工具。
+_Avoid_: 测试平台、TestLab.Agent、框架
+
+**Agent**:
+驱动 lab 的 AI 一方，例如一个 Claude Code 会话。lab 里没有叫 agent 的常驻进程。
+_Avoid_: LabAgent、runner、bot
+
+**Machine**:
+lab 能到达的一台计算机，用登记册里的名字指代，从不用主机名或 IP。
+_Avoid_: 节点、主机、PC、车
+
+**Registry**:
+机器登记册。每台机器一条记录：名字、怎么到达、属于实验室还是生产、能承担哪些角色。
+_Avoid_: 机器池、inventory、fleet
+
+**Role**:
+被测系统里一种进程在 lab 眼中的身份，例如服务端、客户端、模拟器。一台机器可以承担多个角色。
+_Avoid_: 组件、服务、节点类型
+
+**Adapter**:
+把一个被测系统接进 lab 的那层：它的角色清单、每个角色怎么发布、落地、启动、判就绪、
+停止，控制面在哪，日志在哪，场景库在哪。
+_Avoid_: 插件、profile、driver
+
+**Scenario**:
+一次有明确判据的编排：准备状态、驱动、等待、断言。lab 的最小执行单位。
+_Avoid_: 测试、用例、test case、journey
+
+**Run**:
+一个场景的一次执行，有全局唯一的 `runId`，从开始到证据落盘。
+_Avoid_: 执行、trial、session
+
+**Evidence**:
+一次 run 留下的全部产物：结论、判据表、时间线、各机器回捞的日志与快照。只增不改，
+红的不允许被绿的覆盖。
+_Avoid_: 报告、artifact、日志
+
+**Control plane**:
+被测进程为自动化专门暴露的读写入口，例如一个 loopback HTTP 端点或一组 UI 控件。
+lab 只经控制面读状态、注入故障，从不绕过被测方摆终态。
+_Avoid_: 测试接口、后门、API
+
+**Verb**:
+lab CLI 暴露给 agent 的一个动作，例如起某个角色、注入某个故障、等某条判据。
+_Avoid_: 命令、工具、function
