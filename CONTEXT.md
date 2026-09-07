@@ -70,10 +70,17 @@ _Avoid_: 测试、用例、test case、journey
 见 Watch。
 _Avoid_: 执行、trial、session、用它兼指一段观察、把传输故障算成红
 
+**Capture**:
+采集。lab 从一批机器上取回并归一化的原始素材：身份登记表、各机器的日志切片、控制面与
+数据库快照、截图、合并时间线、连接与时钟记录。**它不含任何判定**——一次采集不红也不绿，
+判定是加在它上面的一层。Evidence 与 Observation 都是一次 capture 加上各自的那一层，所以
+两者的素材布局字面相同，一起演进。
+_Avoid_: 证据、素材、artifact、把它说成 evidence 的别名、在它里面放判定
+
 **Evidence**:
-一次 run 留下的全部产物：结论、判据表、时间线、各机器回捞的日志与快照。只增不改，
-红的不允许被绿的覆盖。一段 watch 的产物不是 evidence，见 Observation。
-_Avoid_: 报告、artifact、日志
+一次 run 的 capture 加上判据结论。只增不改，红的不允许被绿的覆盖。一段 watch 的产物不是
+evidence，见 Observation。
+_Avoid_: 报告、artifact、日志、把素材与判定混为一谈
 
 **Watch**:
 一段持续观察。lab 盯着一套已经在运行的被测系统，校验不变量、执行修复。没有终点，
@@ -81,9 +88,8 @@ _Avoid_: 报告、artifact、日志
 _Avoid_: 监控模式、daemon、把它说成一种 run
 
 **Observation**:
-一段 watch 留下的全部产物：时间线、快照序列、检出的不变量违反、做过的修复及其账、
-连接质量。与 Evidence 并列。
-_Avoid_: 监控数据、日志、把它归到 evidence 名下
+一段 watch 的 capture 加上检出的不变量违反、做过的修复及其账。与 Evidence 并列。
+_Avoid_: 监控数据、日志、把它归到 evidence 名下、把素材与判定混为一谈
 
 **Control plane**:
 被测进程为自动化专门暴露的读写入口，例如一个 loopback HTTP 端点或一组 UI 控件。
