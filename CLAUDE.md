@@ -1,8 +1,11 @@
 # 8005-test-lab
 
-An agent-first multi-machine test lab: a system-agnostic core plus one adapter
-per system under test. The first adapter is the WIRE_TO_GATE MVP, which lives
-in `8005-agv-control-server`, `8005-agv-onboard-hmi` and `slots-simulator`.
+An agent-first multi-machine tool: a system-agnostic core plus one adapter per
+system under test. Two modes over the same core — Run (execute a scenario,
+judge it, produce Evidence) and Watch (observe a running production system,
+check invariants, repair, produce Observation). The first adapter is the
+WIRE_TO_GATE MVP, which lives in `8005-agv-control-server`,
+`8005-agv-onboard-hmi` and `slots-simulator`.
 
 ## State of the repository
 
