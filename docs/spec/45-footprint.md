@@ -70,9 +70,11 @@ lab 只读它。清理动作扫 `workRoot` 时具名跳过它，且跳过是一�
   缺省 10。两个数可在 `registry.json` 的「构建机」**能力**上覆盖——覆盖的是能力的一个参数，
   不是「这台机器的清理策略」（#5：登记册只声明能力）。
 - **不用 LRU，不用任何 NTFS 时间戳。** `fsutil behavior query DisableLastAccess` 实测三台机器
-  同值不同行为（控制端与 `vm01` 是 ENABLED，`agv01` 是 DISABLED），靠 last access 的 LRU
-  会静默退化成 FIFO。改成 lab 自己记：**#12 已定的 `publish.ok` 戳文件里加 `lastUsedAt`**，
-  取缓存时刷新，不新增文件。
+  同值（`2`，System Managed）不同行为：控制端与 `vm01` 是 ENABLED，`agv01` 是 DISABLED。
+  在 `agv01` 上那些 `LastAccessTime` **不是一律等于 mtime**（17 个条目里 15 个相等、2 个不等），
+  它们是**任意的**——有的等于 mtime，有的是某次 `Move-Item` 留下的，**没有一个的含义是「最近被
+  用过」**，而这件事在带外看不出来。改成 lab 自己记：**#12 已定的 `publish.ok` 戳文件里加
+  `lastUsedAt`**，取缓存时刷新，不新增文件。
 - **淘汰跑在 `publish` 钩子取缓存的那一刻**，不另起时机——一个额外的触发器就是又一个会静默不跑
   的东西。
 - **撞上限先淘汰再继续，不拒绝。** 与 #15 的 fail-closed 有意不同向：那条是「判不出被测系统的
@@ -87,8 +89,18 @@ lab 只读它。清理动作扫 `workRoot` 时具名跳过它，且跳过是一�
 **不延续 L2 那条「PASS 就删、失败才留」。** 实测（2026-09-09，控制端）：那条规则落地后的 77 次
 PASS，77 个目录一个没删掉——`Remove-Item -Recurse -Force -ErrorAction SilentlyContinue` 每次都
 部分成功（publish 副本删了，SQLite 的 `-wal`/`-shm` 被句柄占着删不掉），静默失败 77 次。
-六天累计 199 个目录、254 MB，其中 98 个连一份证据都没有。
-**PASS 与 FAIL 的目录内容完全相同，两个分支塌成了同一个行为。**
+六天累计 199 个目录、254 MB。**PASS 与 FAIL 的目录内容完全相同，两个分支塌成了同一个行为。**
+
+而那 199 个其实是**三类**：
+
+| 类 | 特征 | 数 |
+| --- | --- | --- |
+| PASS，删除部分成功 | 只剩 SQLite 三件套 | 77 |
+| FAIL，走 else 分支不删 | SQLite 三件套（synthetic rig 本来就没有子目录） | 21 |
+| **编排在 `finally` 之前炸了** | 连一份证据都没有，一部分还带着完整的对端 publish 副本 | **98** |
+
+**第三类比前两类加起来还多**，而 #21 与 #29 早就点过「编排自己炸了」不是例外是一个持续产生的
+类别。这一类跟「留给人诊断」这个理由完全无关——没有证据就没有 runId 的上下文。
 
 - **stage 目录无条件清，PASS 与 FAIL 一视同仁**，带 `completionCheck`（第 9 节）。
 - **那条规则想保住的东西改由 #11 保住**：`controlserver.db` 这类「唯一写着原因的地方」按 #11 已定的
