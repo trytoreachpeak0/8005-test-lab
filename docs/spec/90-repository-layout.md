@@ -161,4 +161,5 @@ adapter，不 gitignore）。用 Pester 5，**真车上也跑，不加额外限�
 
 **不是产品代码的现在就落**：`docs/spec/`、`docs/research/`、`tools/toolkit.json`、`.gitignore`、
 `evidence/README.md`、`observations/README.md`。依据是既有的——`CONTEXT.md` 在地图没清空的情况下
-已经改过十二次，因为词汇表不是代码，而规格、清单与 gitignore 是同一类东西。
+已经改过十七次（2026-09-09，`git log --oneline -- CONTEXT.md | wc -l`；写下这句时是十二次），
+因为词汇表不是代码，而规格、清单与 gitignore 是同一类东西。
