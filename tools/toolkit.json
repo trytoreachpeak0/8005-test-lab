@@ -39,7 +39,8 @@
           "reason": "调试符号，投递用不上；带上它负载会从 41 MB 涨到 188 MB。"
         }
       ],
-      "machines": ["vm01", "agv01", "agv02", "agv03"],
+      "machines": ["local", "vm01", "agv01", "agv02", "agv03"],
+      "machinesNote": "local 由 #29 加：驱动 winapp 的那层包装，它的 tests/machine/ 那一组只要一个交互式桌面，不要黄金渲染机的七条环境条件（那七条是为像素基线服务的，这里不产像素基线）。控制端本来就是取回的那一端，加的只是一条声明。",
       "license": null,
       "verifiedBy": "#7 / 2026-09-07",
       "upgradeRequiresFieldTest": true,

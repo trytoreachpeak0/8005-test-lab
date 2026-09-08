@@ -49,6 +49,15 @@ and the `README.md` files that mark out `evidence/` and `observations/`.
 - **Never write a bare `Import-Module Pester`.** All three machines carry
   Windows' own Pester 3.4.0 on `PSModulePath`, and it is incompatible with the
   Pester 5 syntax the tests are written in. Import the Toolkit copy by path.
+- **Whether a piece of code needs a test is decided by one question: when this
+  breaks, does it make a noise?** A predicate evaluator that scores `unknown` as
+  `pass` leaves Watch permanently green; a broken NDJSON framer fails the very
+  next command. The first must be covered, the second need not be. Full table in
+  `docs/spec/95-self-test.md`. There is no coverage percentage here, on purpose.
+- **Replay never lives under `tests/`.** `lab invariant replay` produces
+  Evidence — it is a deliverable, one of the destination's own completion
+  criteria. Filed under `tests/` it would share a green with "the engine is
+  tested", and those are different claims.
 - Documents people read are in Chinese; agent instruction files and code
   comments are in English. Identifiers, paths, commands, gate and slice names
   stay in English inside Chinese prose.
