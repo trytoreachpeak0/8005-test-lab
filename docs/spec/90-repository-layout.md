@@ -25,6 +25,8 @@
 │     ├─ shared/                能被 lab 之外调用的纯判定（第 5 节）
 │     ├─ <Name>.Adapter.psd1    断言辅助模块，认 $Context
 │     └─ docs/onboarding.md     接入文档
+├─ vigil/
+│  └─ Watch-LabVigil.ps1        看着控制端的那一半，自足单文件，不加载上面任何模块（#30）
 ├─ tests/
 │  ├─ unit/                     无外部依赖，任何机器
 │  ├─ machine/                  要一台真机器才成立的
@@ -56,6 +58,12 @@
 
 模块内部按面切多个 `.psm1`，用 psd1 的 `NestedModules` 串起来，对外仍是一次 `Import-Module` ——
 远端半边的 `Import-Module` 只做一次，之后每次调用都是远端内存里的函数调用。
+
+**`vigil/Watch-LabVigil.ps1` 有意不在这张表里**（#30）。它跑在一台不是控制端的机器上，看着控制端
+自己，所以它**不 `Import-Module` 上面任何一个模块**、不读 `registry.json`——依赖 lab 就意味着 lab
+仓库的一次坏改动会同时干掉被看的和看着的，而那次失败不出声。它因此重复了 `Lab.Core` 里几十行
+webhook POST 与 body 判定，**这份重复是故意的**：第 5 节那条「被 lab 之外调用的适配层判定必须是纯
+函数模块」要消除分叉，这一条要消除共同故障，方向相反而考虑同源。详见 `66-vigil.md` 第 8 节。
 
 ## 3. lab 是仓库内的模块，靠路径导入，不发布
 

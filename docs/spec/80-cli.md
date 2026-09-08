@@ -32,7 +32,9 @@ pwsh 本身不认双破折号 —— 实测直接报 `A positional parameter can
 | `--adapter <name>` | 无默认，只有一个适配层时可省 | #18 |
 
 其余一律子命令级，**包括 `--bind <role>/<instance>=<machine>` 与 `--bindings <file>`** —— 它们是
-这一次 run 的阵容，不是坐标系。
+这一次 run 的阵容，不是坐标系。`lab watch start` 的 `--courier <file>`（#28）与 `--vigil <file>`
+（#30）同样是子命令级：它们是这一段 watch 的通路，不是 lab 的坐标系。两者都**给路径不给 URL**
+（URL 写在命令行上会进进程列表与 shell 历史），文件都进 `.gitignore`。
 
 **没有配置文件，也不读环境变量。** 一条命令就是它自己的完整输入：#12 已经在配置改写上立过同一条
 规矩（整份渲染 + run 后还原 + production 上记 sha256），再开一个「值从哪来」的层级等于把那条规矩的
@@ -45,7 +47,7 @@ pwsh 本身不认双破折号 —— 实测直接报 `A positional parameter can
 | 子命令 | 定于 |
 | --- | --- |
 | `lab run <scenario>` | #6 #10 |
-| `lab watch start` / `stop` / `status` / `grant` / `mute` / `unmute` / `courier-check` | #20 #15 #28 |
+| `lab watch start` / `stop` / `status` / `grant` / `mute` / `unmute` / `courier-check` / `vigil-check` | #20 #15 #28 #30 |
 | `lab scenario list` | #10 #22 |
 | `lab machine check` | #5 #6 #12 |
 | `lab adapter check` | #4 |
@@ -281,8 +283,8 @@ list someone will forget to update」，**而它第一版就漏了两个类**。
 
 ## 附录：`reasonCode` 快照（2026-09-08）
 
-**规则是权威、快照是派生。** 下面这份是截至 2026-09-08 已在票里点名的码，**至少 49 个**（#28 关闭时
-加了第 49 个），只用来给
+**规则是权威、快照是派生。** 下面这份是截至 2026-09-09 已在票里点名的码，**至少 50 个**（#28 关闭时
+加了第 49 个，#30 加了第 50 个），只用来给
 `reason-codes.json` 的第一版打底 —— **它会长**，长了不必回来改这份附录，改注册表。
 
 **「至少」是字面意思，不是谦辞。** 这份是从三十多张票的正文与评论里按「反引号包着的 camelCase
@@ -308,7 +310,8 @@ list someone will forget to update」，**而它第一版就漏了两个类**。
 - **#23 rig**：`externalRolePinned`、`scenarioUnderdeclared`
 - **#16 / #29 工具链与自测**：`pesterVersionTooOld`、`machineTestFootprintMissing`
 - **#28 送达**：`courierNotConfigured`
+- **#30 守望**：`vigilNotConfigured`
 
-`#33` 正文当时写的是「至少十几个」—— 那是低估，数出来至少 48 个（#28 之后 49 个），而 #29 一张票就加了 2 个、#21 加了
+`#33` 正文当时写的是「至少十几个」—— 那是低估，数出来至少 48 个（#28 之后 49 个，#30 之后 50 个），而 #29 一张票就加了 2 个、#21 加了
 七八个。这正是**凡是往决议里写一个数就同时写下它是什么时候的、会不会长**那条规则的又一例，而这次
 连「数出来的那个数本身」也需要一句它的筛法说明。
