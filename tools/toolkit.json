@@ -1,0 +1,68 @@
+{
+  "toolkitVersion": 1,
+  "notes": [
+    "lab 自己依赖的第三方工具的唯一定义处。二进制不进 git，进 git 的是重新取回它所需的一切。",
+    "state=verified 表示哈希是实测过的；state=pending 表示清单先写下了，哈希在第一次 `lab toolkit sync` 取回时补上并提交。",
+    "upgradeRequiresFieldTest 的判据是「这个工具坏掉的时候会不会不出声」，不是「它重不重要」。",
+    "license 为 null 表示尚未从上游读回；首次 sync 时一并填入（RELEASE-CANDIDATE.md 第 10 节的严格性等级）。"
+  ],
+  "tools": [
+    {
+      "name": "winapp-cli",
+      "version": "0.6.0",
+      "state": "verified",
+      "purpose": "驱动 WPF 客户端的 UI Automation 命令行工具。内核的 ui 控制面只暴露它的 UIA 模式动词。",
+      "source": {
+        "kind": "github-release",
+        "repository": "microsoft/winappCli",
+        "tag": "v0.6.0",
+        "asset": "winappcli-x64.zip",
+        "assetBytes": 46672666,
+        "assetSha256": "f6dc42e3b4e4709c8f617003008e2cfdd9a51735e04e7170d60edda258db78a8"
+      },
+      "files": [
+        {
+          "path": "winapp.exe",
+          "bytes": 31485312,
+          "sha256": "0aa2a43086ad07c7fdc35c94ecca0a586e815b1ab46e9b3109d73123e9190c90"
+        },
+        {
+          "path": "libSkiaSharp.dll",
+          "bytes": 9414216,
+          "sha256": "9a0d95e8caaa852c70d085af6a40a744242172ad9ea3fd6bc7599875a8a1dbcd"
+        }
+      ],
+      "discard": [
+        {
+          "path": "winapp.pdb",
+          "bytes": 147656704,
+          "reason": "调试符号，投递用不上；带上它负载会从 41 MB 涨到 188 MB。"
+        }
+      ],
+      "machines": ["vm01", "agv01", "agv02", "agv03"],
+      "license": null,
+      "verifiedBy": "#7 / 2026-09-07",
+      "upgradeRequiresFieldTest": true,
+      "upgradeRequiresFieldTestReason": "它的三条关键行为都是版本相关的，而其中一条是静默的：锁屏下 --capture-screen 返回退出码 0 加一张锁屏壁纸。一个新版本可能修好它，也可能把「锁屏下模式动词可用」与「WGC 截的是活内容」弄坏，三种情况都不报错。换版本必须重跑 #7 那套锁屏实测。"
+    },
+    {
+      "name": "pester",
+      "version": "5.9.1",
+      "state": "pending",
+      "purpose": "lab 自己的测试框架。tests/unit/ 与 tests/machine/ 都用它。",
+      "source": {
+        "kind": "powershell-gallery",
+        "module": "Pester",
+        "publishedDate": "2026-08-11"
+      },
+      "files": [],
+      "machines": ["local", "vm01", "agv01", "agv02", "agv03"],
+      "license": null,
+      "verifiedBy": null,
+      "upgradeRequiresFieldTest": false,
+      "upgradeRequiresFieldTestReason": "它坏掉的时候是响的——测试变红或报解析错误。不存在「静默给出错答案」的失败方式，所以升级不需要先上机器实测。",
+      "pinReason": "用户在 #16 定了 Pester 5。查 PSGallery（2026-09-08）：5.9.1 与 6.1.0 同一天发布（2026-08-11），5.x 分支仍在维护，所以钉 5 不是钉一个被抛弃的分支。升到 6 随时可做，判据见上一行。",
+      "hazard": "控制端、vm01、agv01 三台机器实测都带着 Windows 自带的 Pester 3.4.0，路径 C:\\Program Files\\WindowsPowerShell\\Modules\\Pester\\3.4.0\\，而且都在 pwsh 7 的 PSModulePath 里。裸写 Import-Module Pester 会拿到它，语法不兼容，失败方式是一堆解析错误而不是一句版本不对。必须按路径导入这里的这一份。"
+    }
+  ]
+}

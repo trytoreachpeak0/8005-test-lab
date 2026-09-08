@@ -1,0 +1,17 @@
+# 证据与观察的默认根（#11、#20）。目录本身留一份 README.md 说明它是什么，
+# 因为一个被 ignore 的空目录在新克隆上根本不存在，而默认根就在这里。
+/evidence/*
+!/evidence/README.md
+/observations/*
+!/observations/README.md
+
+# 第三方工具的二进制（#16）。进版本库的是重新取回它所需的一切，不是它本身，
+# 同 remote-ops/onboard-hmi/payload/ 与 releases/ 的做法。
+/tools/*
+!/tools/*.json
+
+# Windows / 编辑器噪音
+Thumbs.db
+desktop.ini
+.DS_Store
+*.log
