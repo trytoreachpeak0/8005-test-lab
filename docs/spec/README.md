@@ -23,7 +23,8 @@
 现在只有该主题的要点清单，完整规格待回填，进度见
 [#35](https://github.com/trytoreachpeak0/8005-test-lab/issues/35)。
 `90-repository-layout.md` 与 `00-overview.md` 是完整的，`95-self-test.md`（#29）、`80-cli.md`（#33）、
-`65-courier.md`（#28）与 `66-vigil.md`（#30）也是——后四份是关票时按即时规则写的。
+`65-courier.md`（#28）、`66-vigil.md`（#30）与 `45-footprint.md`（#31）也是——后五份是关票时按即时
+规则写的。
 
 新关闭的票按上面那条规则即时写入，不进回填队列。
 
@@ -36,6 +37,7 @@
 | `20-adapter-contract.md` | #4 #10 |
 | `30-transport.md` | #6 |
 | `40-deployment.md` | #12 |
+| `45-footprint.md` | #31 |
 | `50-capture-and-evidence.md` | #11 |
 | `60-watch-and-observation.md` | #20 #22 |
 | `65-courier.md` | #28 |
@@ -46,3 +48,4 @@
 | `95-self-test.md` | #29 |
 
 `10`~`80` 讲的是 lab 要造的那个东西；`90` 与 `95` 讲的是 lab 自己这个仓库。
+`45` 是个跨界的：它讲 lab 在别人的机器上留下什么，所以两边都沾。
