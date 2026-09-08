@@ -45,7 +45,7 @@ pwsh 本身不认双破折号 —— 实测直接报 `A positional parameter can
 | 子命令 | 定于 |
 | --- | --- |
 | `lab run <scenario>` | #6 #10 |
-| `lab watch start` / `stop` / `status` / `grant` | #20 #15 |
+| `lab watch start` / `stop` / `status` / `grant` / `mute` / `unmute` / `courier-check` | #20 #15 #28 |
 | `lab scenario list` | #10 #22 |
 | `lab machine check` | #5 #6 #12 |
 | `lab adapter check` | #4 |
@@ -281,7 +281,8 @@ list someone will forget to update」，**而它第一版就漏了两个类**。
 
 ## 附录：`reasonCode` 快照（2026-09-08）
 
-**规则是权威、快照是派生。** 下面这份是截至 2026-09-08 已在票里点名的码，**至少 48 个**，只用来给
+**规则是权威、快照是派生。** 下面这份是截至 2026-09-08 已在票里点名的码，**至少 49 个**（#28 关闭时
+加了第 49 个），只用来给
 `reason-codes.json` 的第一版打底 —— **它会长**，长了不必回来改这份附录，改注册表。
 
 **「至少」是字面意思，不是谦辞。** 这份是从三十多张票的正文与评论里按「反引号包着的 camelCase
@@ -306,7 +307,8 @@ list someone will forget to update」，**而它第一版就漏了两个类**。
   `violationNotObserved`、`violationAbandoned`、`readOnlyDiagnosticViolated`、`unknownOperator`
 - **#23 rig**：`externalRolePinned`、`scenarioUnderdeclared`
 - **#16 / #29 工具链与自测**：`pesterVersionTooOld`、`machineTestFootprintMissing`
+- **#28 送达**：`courierNotConfigured`
 
-`#33` 正文当时写的是「至少十几个」—— 那是低估，数出来至少 48 个，而 #29 一张票就加了 2 个、#21 加了
+`#33` 正文当时写的是「至少十几个」—— 那是低估，数出来至少 48 个（#28 之后 49 个），而 #29 一张票就加了 2 个、#21 加了
 七八个。这正是**凡是往决议里写一个数就同时写下它是什么时候的、会不会长**那条规则的又一例，而这次
 连「数出来的那个数本身」也需要一句它的筛法说明。

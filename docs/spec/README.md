@@ -22,8 +22,8 @@
 `docs/spec/` 建于 2026-09-08，那时地图上已经有十六张关闭的票。**它们的结论尚未回填**——每份文件
 现在只有该主题的要点清单，完整规格待回填，进度见
 [#35](https://github.com/trytoreachpeak0/8005-test-lab/issues/35)。
-`90-repository-layout.md` 与 `00-overview.md` 是完整的，`95-self-test.md` 也是（#29 关闭时按即时
-规则写的第一份）。
+`90-repository-layout.md` 与 `00-overview.md` 是完整的，`95-self-test.md`（#29）、`80-cli.md`（#33）
+与 `65-courier.md`（#28）也是——后三份是关票时按即时规则写的。
 
 新关闭的票按上面那条规则即时写入，不进回填队列。
 
@@ -38,6 +38,7 @@
 | `40-deployment.md` | #12 |
 | `50-capture-and-evidence.md` | #11 |
 | `60-watch-and-observation.md` | #20 #22 |
+| `65-courier.md` | #28 |
 | `70-judgement.md` | #21 #15 |
 | `80-cli.md` | #16 收拢，形状归 #33 |
 | `90-repository-layout.md` | #16 |

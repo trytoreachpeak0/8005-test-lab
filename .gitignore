@@ -10,6 +10,11 @@
 /tools/*
 !/tools/*.json
 
+# Courier 的凭据（#28）。webhook URL 拿到就能往群里发，所以它是凭据不是配置。
+# 进版本库的只有 examples/ 下那两份模板。
+/courier-*.json
+!/courier-*.example.json
+
 # Windows / 编辑器噪音
 Thumbs.db
 desktop.ini
