@@ -9,10 +9,16 @@ WIRE_TO_GATE MVP, which lives in `8005-agv-control-server`,
 
 ## State of the repository
 
-Decisions only, no code yet. The design is being settled with `/wayfinder`;
-the map is the issue labelled `wayfinder:map`, its tickets are that issue's
-sub-issues. Do not write product code here until the map has cleared and a
-spec exists.
+No product code yet. The design is being settled with `/wayfinder`; the map is
+the issue labelled `wayfinder:map`, its tickets are that issue's sub-issues.
+**Do not write product code here until the map has cleared and a spec exists**
+— that means `src/`, `tests/`, `adapters/` and `lab.ps1`.
+
+Everything that is not product code does land as it is decided, and always has:
+`CONTEXT.md` has been rewritten twelve times without the map clearing, because a
+vocabulary is not code. The same goes for `docs/spec/` (each ticket writes its
+own section on closing), `docs/research/`, `tools/toolkit.json`, `.gitignore`,
+and the `README.md` files that mark out `evidence/` and `observations/`.
 
 ## Rules that apply from day one
 
@@ -23,9 +29,26 @@ spec exists.
   `CLAUDE.md` at `C:\Users\szy\Desktop\8005-workspace\CLAUDE.md`. Reaching a
   machine through the lab never grants write access to the repository whose
   code runs there.
-- PowerShell 7 only, `#Requires -Version 7` on every `.ps1`. Any .NET project
-  follows the toolchain baseline in
-  `8005-agv-program/docs/adr/cross/0056-dotnet-toolchain-baseline.md`.
+- PowerShell 7 only, `#Requires -Version 7` on every `.ps1`. **There is no .NET
+  project here and none is planned** — the day pwsh cannot carry it, that is a
+  ticket, not a decision to make while editing. ADR 0056 gets referenced when
+  such a project exists, not before.
+- **Module dependency direction, easy to break by accident.** `Lab.Judge`
+  depends on nothing else and does no I/O; `Lab.Remote` and `Lab.Probe` never
+  depend on `Lab.Core`. Those two are synced or deployed to the machines under
+  test, so depending on the control host means shipping the control host to a
+  production vehicle.
+- **Naming.** Directories and Markdown are lowercase kebab-case, governed by
+  `file-naming-convention/` in the workspace root. PowerShell sources follow the
+  PowerShell community convention instead — `Lab.Core.psd1`, `Verb-Noun.ps1` —
+  which that document explicitly leaves to each language's own habits.
+- **Third-party binaries never enter git.** The single source of truth is
+  `tools/toolkit.json`: version, per-file SHA-256, upstream URL, licence. Same
+  "recipe, not the build" habit as `remote-ops/onboard-hmi/payload/` and
+  `releases/`.
+- **Never write a bare `Import-Module Pester`.** All three machines carry
+  Windows' own Pester 3.4.0 on `PSModulePath`, and it is incompatible with the
+  Pester 5 syntax the tests are written in. Import the Toolkit copy by path.
 - Documents people read are in Chinese; agent instruction files and code
   comments are in English. Identifiers, paths, commands, gate and slice names
   stay in English inside Chinese prose.
