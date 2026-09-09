@@ -23,9 +23,10 @@
 现在只有该主题的要点清单，完整规格待回填，进度见
 [#35](https://github.com/trytoreachpeak0/8005-test-lab/issues/35)。
 `90-repository-layout.md` 与 `00-overview.md` 是完整的，`95-self-test.md`（#29）、`80-cli.md`（#33）、
-`65-courier.md`（#28）、`66-vigil.md`（#30）、`45-footprint.md`（#31）、`25-l2-migration.md`（#17）、
-`26-remote-ops-boundary.md`（#24）、`96-ci.md`（#13）与 `91-agent-briefing.md`（#34）也是——后九份是
-关票时按即时规则写的。**这一段列的是文件名而不是数量，因为它会长。**
+`65-courier.md`（#28）、`66-vigil.md`（#30）、`67-field-access.md`（#27）、`45-footprint.md`（#31）、
+`25-l2-migration.md`（#17）、`26-remote-ops-boundary.md`（#24）、`96-ci.md`（#13）与
+`91-agent-briefing.md`（#34）也是——这些是关票时按即时规则写的。**这一段列的是文件名而不是数量，
+因为它会长**（原来那句「后九份」正是一个会长的数，加第十份时它就错了）。
 
 新关闭的票按上面那条规则即时写入，不进回填队列。
 
@@ -50,6 +51,7 @@
 | `60-watch-and-observation.md` | #20 #22 |
 | `65-courier.md` | #28 |
 | `66-vigil.md` | #30 |
+| `67-field-access.md` | #27 |
 | `70-judgement.md` | #21 #15 |
 | `80-cli.md` | #16 收拢，形状归 #33 |
 | `90-repository-layout.md` | #16 |
