@@ -23,8 +23,8 @@
 现在只有该主题的要点清单，完整规格待回填，进度见
 [#35](https://github.com/trytoreachpeak0/8005-test-lab/issues/35)。
 `90-repository-layout.md` 与 `00-overview.md` 是完整的，`95-self-test.md`（#29）、`80-cli.md`（#33）、
-`65-courier.md`（#28）、`66-vigil.md`（#30）与 `45-footprint.md`（#31）也是——后五份是关票时按即时
-规则写的。
+`65-courier.md`（#28）、`66-vigil.md`（#30）、`45-footprint.md`（#31）与 `25-l2-migration.md`（#17）
+也是——后六份是关票时按即时规则写的。
 
 新关闭的票按上面那条规则即时写入，不进回填队列。
 
@@ -35,6 +35,7 @@
 | `00-overview.md` | 地图 #1 |
 | `10-registry-and-binding.md` | #5 |
 | `20-adapter-contract.md` | #4 #10 |
+| `25-l2-migration.md` | #17 |
 | `30-transport.md` | #6 |
 | `40-deployment.md` | #12 |
 | `45-footprint.md` | #31 |
@@ -49,3 +50,5 @@
 
 `10`~`80` 讲的是 lab 要造的那个东西；`90` 与 `95` 讲的是 lab 自己这个仓库。
 `45` 是个跨界的：它讲 lab 在别人的机器上留下什么，所以两边都沾。
+`25` 也是个跨界的：它讲今天 `8005-agv-control-server/scripts/l2/` 那套东西怎么变成 lab 的第一个
+场景库，所以一半是一次性的迁移路线，一半是之后一直成立的分界。
