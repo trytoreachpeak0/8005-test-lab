@@ -5,7 +5,9 @@
 `tests/` 的三分目录、Pester 5、以及「真车上也跑，不加额外限制」由
 [#16](https://github.com/trytoreachpeak0/8005-test-lab/issues/16) 定，见
 [90-repository-layout.md](90-repository-layout.md) 第 6 节。本文定**测什么、测到什么程度、
-哪些不测**。CI 怎么跑归 [#13](https://github.com/trytoreachpeak0/8005-test-lab/issues/13)。
+哪些不测**。CI 怎么跑归 [#13](https://github.com/trytoreachpeak0/8005-test-lab/issues/13)，
+见 [96-ci.md](96-ci.md)——本文这三分目录在那边对应四个 job，选择器就是每个测试的
+`$LabTestFootprint.Requires`。
 
 ## 1. 什么必须有测试：坏掉的时候会不会不出声
 
@@ -119,7 +121,13 @@ locale / 时区 / 渲染模式）—— 那七条是为像素基线服务的，�
 **生产车上无条件跑**（用户 2026-09-08 定）。#15 那条「`tier: production` 上 UI 写操作一律无条件
 拒绝」不覆盖它 —— 那条禁的是对**被测系统窗口**的写操作。
 
-**在 `vm01` 上跑这一组必须拿 `Global\W2G-InteractiveDesktop`**，lab 是那台机器上的第五个持锁者。
+**在 `vm01` 上跑这一组必须拿 `Global\W2G-InteractiveDesktop`。**
+
+~~lab 是那台机器上的第五个持锁者。~~ **那个数错了**（#13 于 2026-09-09 重数）：它是从「`vm01` 上
+五个 `Runner.Listener` 进程」推来的，而 runner 不是持锁者。`main` 上取这把锁的代码路径**只有
+两条**，都在 `8005-mes-ingest` 里（`Invoke-WithDesktopLock.ps1:72` 与
+`Invoke-WatchUiTests.ps1:169-170`）。**lab 是第三条**，取锁与超时的形状见
+[96-ci.md](96-ci.md) 第 4 节。
 
 ## 5. 回放与单元测试的分工
 

@@ -6,6 +6,7 @@
 
 ```
 8005-test-lab/
+├─ .github/workflows/           CI（#13）——跟 lab.ps1 一起落，不提前
 ├─ CLAUDE.md                    agent 规则
 ├─ CONTEXT.md                   词汇表
 ├─ README.md                    人读的入口
@@ -142,7 +143,8 @@ adapter，不 gitignore）。用 Pester 5，**真车上也跑，不加额外限�
 `tests/machine/` 里每个测试**声明它碰什么**（进程、端口、桌面、路径）。这不挡任何测试跑，它是为了让
 「一次自测跑完之后那台生产车上多了什么」可核。
 
-测什么、测到什么程度归 #29；CI 怎么跑归 #13。
+测什么、测到什么程度归 #29（[95-self-test.md](95-self-test.md)）；CI 怎么跑归 #13
+（[96-ci.md](96-ci.md)）。
 
 ## 7. 命名
 

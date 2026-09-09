@@ -127,7 +127,10 @@ run 结局、另立先列清单再核销的账；加上这一条之后那份账�
 - **ACL 给 SYSTEM + Administrators**，去掉 Users 与 Authenticated Users 的继承。这挡住四个
   `NETWORK SERVICE` 的 runner。
 - **明说它挡不住那个提权的 desktop runner**，写进接入文档——照 #22 对 ledger 的做法，
-  不假装能挡。
+  不假装能挡。**#13 把这句从一个变成两个**：lab 自己的第二个 runner
+  （`win11-01-test-lab-desktop`）也必须以 `agvops` + `RunLevel=Highest` 跑，否则它拿不到桌面
+  互斥体（[96-ci.md](96-ci.md) 第 4.4 节实测了默认 DACL）。**挡不住的那一个里，从此有一个是
+  lab 自己。**
 - **不做 DPAPI 机器级加密**：对本机管理员透明，是假的防护。
 - **Vigil 用一份与控制端 Courier 不同的 webhook key**，理由不是更安全（同一个群，泄漏后果一样），
   而是**可撤销性**——泄漏时能单独换掉它。
