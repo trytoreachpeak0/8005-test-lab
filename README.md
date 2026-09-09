@@ -19,3 +19,9 @@ lab 要让一个 coding agent 只靠一套 CLI 就能：起停任意机器上的
 ## 术语
 
 见 [CONTEXT.md](CONTEXT.md)。「Agent」在这个仓库里只指 AI 一方。
+
+## 一个新会话从哪儿开始
+
+读的顺序在 [CLAUDE.md](CLAUDE.md) 的「What to read, and when it reaches you」一节；
+这张图已经踩过的坑在 [docs/agent-notes.md](docs/agent-notes.md)，规则本身在
+[docs/spec/91-agent-briefing.md](docs/spec/91-agent-briefing.md)。

@@ -15,10 +15,41 @@ the issue labelled `wayfinder:map`, its tickets are that issue's sub-issues.
 — that means `src/`, `tests/`, `adapters/` and `lab.ps1`.
 
 Everything that is not product code does land as it is decided, and always has:
-`CONTEXT.md` has been rewritten twelve times without the map clearing, because a
-vocabulary is not code. The same goes for `docs/spec/` (each ticket writes its
-own section on closing), `docs/research/`, `tools/toolkit.json`, `.gitignore`,
-and the `README.md` files that mark out `evidence/` and `observations/`.
+`CONTEXT.md` has been rewritten over and over without the map clearing
+(`git log --oneline -- CONTEXT.md` counts the times), because a vocabulary is
+not code. The same goes for `docs/spec/` (each ticket writes its own section on
+closing), `docs/agent-notes.md`, `docs/research/`, `tools/toolkit.json`,
+`.gitignore`, and the `README.md` files that mark out `evidence/` and
+`observations/`.
+
+## What to read, and when it reaches you
+
+**This file is not loaded at the start of a session.** Claude Code loads
+`CLAUDE.md` from the working directory and every directory above it; files in
+subdirectories are pulled in only when it reads a file there. Sessions on this
+map start at the workspace root, so this file arrives *after* the session has
+already read something under `repos/8005-test-lab/`. Never write a rule here
+that has to be known before that point — see `docs/spec/91-agent-briefing.md`
+section 1 for the measurement and the one way to change it.
+
+Reading order for a new session:
+
+1. Workspace root `CLAUDE.md` — write authority table, PowerShell 7.
+2. This file — the rules below, and where everything else lives.
+3. `docs/agent-notes.md` — what this map has already got wrong. Read it before
+   starting, not when stuck.
+4. `pwsh ./lab.ps1 help --json` — every command, parameter, outcome value and
+   exit code, derived live from the `param` blocks. **No document repeats that
+   table.** (Not available until `lab.ps1` lands; until then `docs/spec/80-cli.md`
+   is the reference, and it is the only place that is.)
+5. `docs/spec/` — only when changing the core or an adapter. The index is
+   `docs/spec/README.md`; adding a spec file means adding its row there.
+
+**Tickets are not on that chain.** They are a decision archive, not a manual,
+and `gh issue list --state all` shows how many there are by now. Read one only
+when a named pointer sends you there — a spec file saying "decided in #17", or
+a stub file naming its own ticket. Never go hunting through the issue list for
+"the relevant ticket"; that is a search every session would have to redo.
 
 ## Rules that apply from day one
 
