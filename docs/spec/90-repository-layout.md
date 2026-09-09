@@ -36,6 +36,7 @@
 │  └─ toolkit.json              第三方工具清单，二进制不进 git（第 4 节）
 ├─ docs/
 │  ├─ spec/                     本目录
+│  ├─ agent-notes.md            这张图踩过的坑，开工前读（#34）
 │  └─ research/                 研究文档，带快照声明
 ├─ evidence/                    gitignore，留 README.md（#11）
 └─ observations/                gitignore，留 README.md（#20）
