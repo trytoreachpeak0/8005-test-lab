@@ -24,13 +24,21 @@ closing), `docs/agent-notes.md`, `docs/research/`, `tools/toolkit.json`,
 
 ## What to read, and when it reaches you
 
-**This file is not loaded at the start of a session.** Claude Code loads
-`CLAUDE.md` from the working directory and every directory above it; files in
-subdirectories are pulled in only when it reads a file there. Sessions on this
-map start at the workspace root, so this file arrives *after* the session has
-already read something under `repos/8005-test-lab/`. Never write a rule here
-that has to be known before that point — see `docs/spec/91-agent-briefing.md`
-section 1 for the measurement and the one way to change it.
+**Whether this file reaches a session at its start depends on where the session
+was launched.** Claude Code loads `CLAUDE.md` from the working directory and
+every directory above it; files in subdirectories are pulled in only when it
+reads a file there. This repository is a subdirectory of the workspace root,
+where sessions on this map are launched — so until 2026-09-09 this file always
+arrived *after* the session had already read something under
+`repos/8005-test-lab/`.
+
+Since 2026-09-09 the workspace root `CLAUDE.md` imports this file
+(`@repos/8005-test-lab/CLAUDE.md`), so a session launched **there** now gets it
+at start. That fixes the common case and nothing else: a session launched inside
+this repository, given it with `--add-dir`, or working from a standalone clone
+still does not get the import. **So the rule stands — never write a rule here
+whose failure mode is "the agent never saw it".** See
+`docs/spec/91-agent-briefing.md` section 1.
 
 Reading order for a new session:
 
